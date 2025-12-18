@@ -1,8 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function CoverFlow({ images }) {
     const [index, setIndex] = useState(0);
+    const [playingVideo, setPlayingVideo] = useState(null);
+    const [progress, setProgress] = useState(0);
+
+    const videoRefs = useRef({});
+
+    const total = images?.length || 0;
+
+    // Pause videos when index changes
+    useEffect(() => {
+        Object.values(videoRefs.current).forEach((v) => {
+            if (v) v.pause();
+        });
+        setPlayingVideo(null);
+        setProgress(0);
+    }, [index]);
 
     if (!images || images.length === 0) {
         return (
@@ -18,20 +33,24 @@ export default function CoverFlow({ images }) {
             style={{ perspective: "1400px", height: "560px" }}
         >
             {images.map((item, i) => {
-                const offset = i - index;
-                const isActive = i === index;
+                // 🔁 LOOPING OFFSET LOGIC (core)
+                const rawOffset = i - index;
+                let offset = rawOffset % total;
+                if (offset > total / 2) offset -= total;
+                if (offset < -total / 2) offset += total;
 
-                const baseWidth = isActive ? 360 : 300;
-                const baseHeight = isActive ? 460 : 360;
+                const isActive = offset === 0;
+                const isVideo = item?.type === "video";
 
                 return (
                     <div
                         key={i}
-                        onClick={() => setIndex(i)}
-                        className="absolute cursor-pointer transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)]"
+                        onClick={() => setIndex(index + offset)}
+                        className="absolute cursor-pointer transition-all duration-700
+                       ease-[cubic-bezier(.22,1,.36,1)]"
                         style={{
-                            width: baseWidth,
-                            height: baseHeight,
+                            width: isActive ? 360 : 300,
+                            height: isActive ? 460 : 360,
                             transform: `
                 translateX(${offset * 190}px)
                 translateY(${isActive ? "-22px" : "0px"})
@@ -42,32 +61,92 @@ export default function CoverFlow({ images }) {
                             opacity: Math.abs(offset) > 3 ? 0 : 1,
                         }}
                     >
-                        {/* Card */}
-                        <div
-                            className="relative w-full h-full rounded-2xl overflow-hidden bg-white
-                         shadow-[0_25px_60px_rgba(0,0,0,0.28)]"
-                        >
-                            {/* Image / Video */}
-                            {typeof item === "string" || item.type === "image" ? (
+                        {/* CARD */}
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden
+                            bg-white shadow-[0_25px_60px_rgba(0,0,0,0.28)]">
+
+                            {/* IMAGE / GIF */}
+                            {!isVideo ? (
                                 <img
                                     src={typeof item === "string" ? item : item.src}
                                     className="w-full h-full object-cover"
                                     draggable={false}
                                 />
                             ) : (
-                                <video
-                                    src={item.src}
-                                    poster={item.poster}   // ⭐ thumbnail
-                                    muted
-                                    loop
-                                    playsInline
-                                    autoPlay={isActive}
-                                    className="w-full h-full object-cover"
-                                />
+                                <>
+                                    {/* VIDEO */}
+                                    <video
+                                        ref={(el) => (videoRefs.current[i] = el)}
+                                        src={item.src}
+                                        poster={item.poster}
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-cover"
+                                        onTimeUpdate={(e) => {
+                                            if (isActive && playingVideo === i) {
+                                                const v = e.target;
+                                                setProgress(
+                                                    (v.currentTime / v.duration) * 100 || 0
+                                                );
+                                            }
+                                        }}
+                                        onEnded={() => {
+                                            setPlayingVideo(null);
+                                            setProgress(0);
+                                        }}
+                                    />
+
+                                    {/* CONTROLS — ONLY WHEN CENTER */}
+                                    {isActive && (
+                                        <div
+                                            className="absolute bottom-0 left-0 w-full
+                                 bg-black/55 backdrop-blur-md
+                                 px-4 py-3 flex items-center gap-3"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {/* Play / Pause */}
+                                            <button
+                                                onClick={() => {
+                                                    const video = videoRefs.current[i];
+                                                    if (!video) return;
+
+                                                    if (video.paused) {
+                                                        video.play();
+                                                        setPlayingVideo(i);
+                                                    } else {
+                                                        video.pause();
+                                                        setPlayingVideo(null);
+                                                    }
+                                                }}
+                                                className="text-white text-xl"
+                                            >
+                                                {playingVideo === i ? "⏸" : "▶️"}
+                                            </button>
+
+                                            {/* Timeline */}
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max="100"
+                                                value={progress}
+                                                onChange={(e) => {
+                                                    const video = videoRefs.current[i];
+                                                    if (!video) return;
+
+                                                    const value = Number(e.target.value);
+                                                    video.currentTime =
+                                                        (value / 100) * video.duration;
+                                                    setProgress(value);
+                                                }}
+                                                className="flex-1 accent-[#EC407A] cursor-pointer"
+                                            />
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
 
-                        {/* Reflection (only for active) */}
+                        {/* REFLECTION — ACTIVE ONLY */}
                         {isActive && (
                             <div
                                 className="absolute top-full left-0 w-full h-[120px]
@@ -79,7 +158,7 @@ export default function CoverFlow({ images }) {
                                         "linear-gradient(to bottom, rgba(0,0,0,0.35), transparent)",
                                 }}
                             >
-                                {typeof item === "string" || item.type === "image" ? (
+                                {!isVideo ? (
                                     <img
                                         src={typeof item === "string" ? item : item.src}
                                         className="w-full h-full object-cover"

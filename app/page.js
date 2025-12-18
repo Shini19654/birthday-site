@@ -48,7 +48,11 @@ export default function Page() {
   return (
     <main
       className="h-screen flex flex-col items-center justify-center text-center px-6"
-      style={{ backgroundColor: "#FFE0E8" }}
+      style={{
+        backgroundImage: "url('/bg2.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       {/* Music */}
       <audio ref={audioRef} src={CONFIG.music} loop />
@@ -69,13 +73,13 @@ export default function Page() {
 
       {/* Heading */}
       <h1 className="text-5xl font-bold text-[#2F2F2F] mb-4">
-        Counting down to{" "}
+        Counting Down To{" "}
         <span className="text-[#EC407A]">Aishwarya&apos;s</span>{" "}
-        special day 🎂
+        Special Day 🎂
       </h1>
 
       {/* Subtitle */}
-      <p className="text-lg italic text-[#6B6B6B] mb-8">
+      <p className="text-lg italic text-[#2F2F2F] mb-8">
         You mean more to me than words can ever explain 💖
       </p>
 
@@ -90,17 +94,17 @@ export default function Page() {
                 <div className="text-3xl font-bold text-[#EC407A]">
                   {time[u] ?? "00"}
                 </div>
-                <div className="text-xs uppercase text-[#6B6B6B] mt-1">
+                <div className="text-s uppercase text-[#6B6B6B] mt-1">
                   {u}
                 </div>
               </div>
             ))}
           </div>
 
-          <p className="text-[#EC407A] font-semibold text-xl mb-2">
+          <p className="text-[#EC407A] font-semibold text-2xl mb-2">
             ✨ A special celebration awaits you at midnight… ✨
           </p>
-          <p className="text-lg text-[#6B6B6B]">
+          <p className="text-lg italic text-[#2F2F2F]">
             Something magical is about to unfold 🌙
           </p>
         </>

@@ -34,7 +34,7 @@ iska prize is..... drumroll.....
 "I will do one thing you sa, no questions asked"🕯️
   `,
 
-  targetDate: "2025-12-29T00:00:00",
+  targetDate: "2024-12-29T00:00:00",
 
 
   photos: [
@@ -52,16 +52,20 @@ iska prize is..... drumroll.....
     { type: "image", src: "/photos/10.jpg" },
     { type: "image", src: "/photos/11.gif" },
     { type: "image", src: "/photos/11.jpg" },
+    { type: "video", src: "/photos/11.mp4" },
     { type: "image", src: "/photos/12.jpg" },
     { type: "image", src: "/photos/13.jpg" },
     { type: "image", src: "/photos/14.jpg" },
     { type: "image", src: "/photos/15.jpg" },
     { type: "image", src: "/photos/16.jpg" },
-    { type: "image", src: "/photos/17.gif" },
+    { type: "image", src: "/photos/17.jpg" },
     { type: "image", src: "/photos/18.jpg" },
     { type: "image", src: "/photos/19.jpg" },
-    { type: "image", src: "/photos/20.jpg" },
+    { type: "image", src: "/photos/20.gif" },
     { type: "image", src: "/photos/21.jpg" },
+    { type: "image", src: "/photos/22.jpg" },
+    { type: "image", src: "/photos/23.jpg" },
+    { type: "image", src: "/photos/24.jpg" },
   ],
   music: "/music.mp3"
 };
