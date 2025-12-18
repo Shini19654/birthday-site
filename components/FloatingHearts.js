@@ -20,10 +20,10 @@ export default function FloatingHearts() {
 
             setTimeout(() => {
                 heart.remove();
-            }, 10000);
+            }, 100000);
         };
 
-        const interval = setInterval(createHeart, 700);
+        const interval = setInterval(createHeart, 350);
         return () => clearInterval(interval);
     }, []);
 

@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { CONFIG } from "../../config";
 import { Dancing_Script } from "next/font/google";
 import BackButton from "../../components/BackButton";
+import confetti from "canvas-confetti";
+import FloatingHearts from "../../components/FloatingHearts";
 
 const handwritten = Dancing_Script({
     subsets: ["latin"],
@@ -55,6 +57,8 @@ export default function Intro() {
             >
                 {playing ? "⏸ Pause Music" : "▶️ Play Music"}
             </button>
+
+            <FloatingHearts />
 
             {/* Text */}
             <h1 className={`text-9xl font-bold text-[#2F2F2F] mb-2 ${handwritten.className}`}>

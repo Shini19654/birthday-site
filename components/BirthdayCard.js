@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Dancing_Script } from "next/font/google";
+import FloatingHearts from "../components/FloatingHearts";
 
 const handwritten = Dancing_Script({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function BirthdayCard({ message, onOpen }) {
           <p className="text-6xl font-semibold text-[#EC407A] leading-relaxed">
             💌 Tap to open
           </p>
+          <FloatingHearts />
         </div>
 
         {/* Inside */}

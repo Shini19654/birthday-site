@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CONFIG } from "../config";
+import confetti from "canvas-confetti";
 
 export default function Page() {
   const router = useRouter();
@@ -33,7 +34,16 @@ export default function Page() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [router]);
+  }, []);
+
+  const celebrate = () => {
+    const end = Date.now() + 3000;
+    (function frame() {
+      confetti({ particleCount: 10, spread: 70, origin: { x: 0 } });
+      confetti({ particleCount: 10, spread: 70, origin: { x: 1 } });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+  };
 
   return (
     <main
@@ -47,12 +57,7 @@ export default function Page() {
       <button
         onClick={() => {
           if (!audioRef.current) return;
-
-          if (playing) {
-            audioRef.current.pause();
-          } else {
-            audioRef.current.play();
-          }
+          playing ? audioRef.current.pause() : audioRef.current.play();
           setPlaying(!playing);
         }}
         className="absolute top-6 right-6 px-5 py-2 rounded-full
@@ -73,23 +78,6 @@ export default function Page() {
       <p className="text-lg italic text-[#6B6B6B] mb-8">
         You mean more to me than words can ever explain 💖
       </p>
-
-      {/* Countdown
-      <div className="flex gap-4 mb-6">
-        {["days", "hours", "minutes", "seconds"].map((u) => (
-          <div
-            key={u}
-            className="bg-white px-6 py-4 rounded-xl shadow-md min-w-[90px]"
-          >
-            <div className="text-3xl font-bold text-[#EC407A]">
-              {time[u] ?? "00"}
-            </div>
-            <div className="text-xs uppercase text-[#6B6B6B] mt-1">
-              {u}
-            </div>
-          </div>
-        ))}
-      </div> */}
 
       {!finished ? (
         <>
@@ -118,58 +106,38 @@ export default function Page() {
         </>
       ) : (
         <>
-          {/* Jumping text */}
           <h2
             className="text-5xl font-bold text-[#EC407A] mb-10"
-            style={{
-              animation: "birthdayJump 1s ease-in-out infinite",
-            }}
+            style={{ animation: "birthdayJump 1s ease-in-out infinite" }}
           >
             🎉 It’s your birthday!
           </h2>
 
-          {/* Pulsing button */}
           <button
-            onClick={() => router.push("/intro")}
-            className="px-12 py-4 rounded-full text-white font-semibold text-lg bg-[#EC407A]"
-            style={{
-              animation: "birthdayPulse 1.6s ease-in-out infinite",
+            onClick={() => {
+              celebrate();
+              router.push("/intro");
             }}
+            className="px-12 py-4 rounded-full text-white font-semibold text-lg bg-[#EC407A]"
+            style={{ animation: "birthdayPulse 1.6s ease-in-out infinite" }}
           >
             🎂 Let’s Celebrate
           </button>
 
-          {/* Inline animations (bulletproof) */}
           <style jsx>{`
-      @keyframes birthdayJump {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-22px);
-        }
-      }
+            @keyframes birthdayJump {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-22px); }
+            }
 
-      @keyframes birthdayPulse {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 rgba(236, 64, 122, 0.4);
-        }
-        50% {
-          transform: scale(1.1);
-          box-shadow: 0 20px 40px rgba(236, 64, 122, 0.5);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 rgba(236, 64, 122, 0.4);
-        }
-      }
-    `}</style>
+            @keyframes birthdayPulse {
+              0% { transform: scale(1); }
+              50% { transform: scale(1.1); }
+              100% { transform: scale(1); }
+            }
+          `}</style>
         </>
       )}
-
-
     </main>
   );
 }
-
