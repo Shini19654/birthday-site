@@ -26,7 +26,7 @@ export default function Memories() {
             }}
         >
             {/* Overlay */}
-            <div className="absolute inset-0 bg-[#FFE0E8]/70" />
+            <div className="absolute inset-0 bg-[#FFE0E8]/10" />
 
             {/* Music */}
             <audio ref={audioRef} src={CONFIG.music} loop autoPlay />

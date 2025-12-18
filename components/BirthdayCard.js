@@ -33,7 +33,7 @@ export default function BirthdayCard({ message, onOpen }) {
 
 
   return (
-    <div className="relative w-[640px] h-[440px] perspective">
+    <div className="relative w-[940px] h-[550px] perspective">
       <div
         className={`card ${open ? "open" : ""}`}
         onClick={handleOpen}
@@ -47,7 +47,7 @@ export default function BirthdayCard({ message, onOpen }) {
 
         {/* Inside */}
         <div className={`card-face card-inside ${handwritten.className}`}>
-          <p className="whitespace-pre-line text-[#6B6B6B] text-2xl leading-relaxed">
+          <p className="whitespace-pre-line text-[#2F2F2F] font-bold text-xl leading-relaxed">
             {message}
           </p>
         </div>
@@ -92,7 +92,8 @@ export default function BirthdayCard({ message, onOpen }) {
 
         .card-inside {
           transform: rotateY(180deg);
-          text-align: center;
+          text-align: left;
+          justify-content: center;
         }
         @keyframes sparkle {
   from {
