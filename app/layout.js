@@ -20,7 +20,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Happy Birthday Aishwarya 🎂",
-  icons: {icon: "/favicon.ico",
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
