@@ -60,8 +60,6 @@ iska prize is..... drumroll.....
     { type: "image", src: "/photos/17.gif" },
     { type: "image", src: "/photos/18.jpg" },
     { type: "image", src: "/photos/19.jpg" },
-    { type: "image", src: "/photos/18.jpg" },
-    { type: "image", src: "/photos/19.jpg" },
     { type: "image", src: "/photos/20.jpg" },
     { type: "image", src: "/photos/21.jpg" },
   ],
