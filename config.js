@@ -16,7 +16,7 @@ If you’re reading this, you unlocked something special.
 🕯️
   `,
 
-    targetDate: "2025-12-18T04:30:00+05:30",
+    targetDate: "2025-12-29T00:00:00",
 
 
     photos: [
