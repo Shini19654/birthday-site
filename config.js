@@ -34,7 +34,7 @@ iska prize is..... drumroll.....
 "I will do one thing you sa, no questions asked"🕯️
   `,
 
-  targetDate: "2025-12-29T00:00:00",
+  targetDate: "2024-12-29T00:00:00",
 
 
   photos: [

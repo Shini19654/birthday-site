@@ -41,10 +41,11 @@ export default function BirthdayCard({ message, onOpen }) {
       >
         {/* Front */}
         <div className={`card-face card-front ${handwritten.className}`}>
-          <p className="text-6xl font-semibold text-[#EC407A] leading-relaxed">
+          <p className="text-9xl font-semibold text-[#EC407A] leading-relaxed">
             💌 Tap to open
           </p>
           <FloatingHearts />
+
         </div>
 
         {/* Inside */}
@@ -89,8 +90,11 @@ export default function BirthdayCard({ message, onOpen }) {
         }
 
         .card-front {
-          background: linear-gradient(135deg, #FFD1E1, #FFE0E8);
-        }
+    background-image: url("/bg4.avif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
         .card-inside {
           transform: rotateY(180deg);

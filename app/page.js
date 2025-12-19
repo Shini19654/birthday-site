@@ -54,6 +54,7 @@ export default function Page() {
         backgroundPosition: "center",
       }}
     >
+
       {/* Music */}
       <audio ref={audioRef} src={CONFIG.music} loop />
 

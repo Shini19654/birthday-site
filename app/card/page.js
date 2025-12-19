@@ -48,7 +48,7 @@ export default function Reveal() {
         <main
             className="fixed inset-0 flex items-center justify-center"
             style={{
-                backgroundImage: "url('/intro-bg.jpg')",
+                backgroundImage: "url('bg.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
