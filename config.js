@@ -61,11 +61,14 @@ iska prize is..... drumroll.....
     { type: "image", src: "/photos/17.jpg" },
     { type: "image", src: "/photos/18.jpg" },
     { type: "image", src: "/photos/19.jpg" },
-    { type: "image", src: "/photos/20.gif" },
+    { type: "image", src: "/photos/20.jpg" },
     { type: "image", src: "/photos/21.jpg" },
     { type: "image", src: "/photos/22.jpg" },
-    { type: "image", src: "/photos/23.jpg" },
+    { type: "image", src: "/photos/23.gif" },
     { type: "image", src: "/photos/24.jpg" },
+    { type: "image", src: "/photos/25.jpg" },
+    { type: "image", src: "/photos/26.jpg" },
+    { type: "image", src: "/photos/27.jpg" },
   ],
   music: "/music.mp3"
 };
